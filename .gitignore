@@ -37,6 +37,7 @@
 .gradle/
 allure-results/
 gradle/
+downloads/
 build/
 bin/
 out/

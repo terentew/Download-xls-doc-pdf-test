@@ -3,11 +3,15 @@ package utils;
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,5 +85,37 @@ public class Files {
         }
 
         return result;
+    }
+    public static String readDocFile(String filePath) throws IOException {
+
+        File file = new File(filePath);
+
+        FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+
+        HWPFDocument doc = new HWPFDocument(fis);
+
+        WordExtractor we = new WordExtractor(doc);
+
+        String docsText = we.getText();
+
+        return docsText;
+
+
+    }
+
+    public static String readDocxFile(String fileName) throws IOException {
+
+        File file = new File(fileName);
+
+        FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+
+        XWPFDocument docx = new XWPFDocument(fis);
+
+        XWPFWordExtractor extractor = new XWPFWordExtractor(docx);
+
+        String docsText = extractor.getText();
+
+        return docsText;
+
     }
 }
